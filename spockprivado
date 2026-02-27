@@ -17,8 +17,8 @@ local function naturalBoost(obj)
             pcall(function()
                 if child.Color then
                     local r, g, b = child.Color.R, child.Color.G, child.Color.B
-                    local avgBrightness = (r + g + b) / 3
-                    local factor = 1.05
+                    local avgBrightness = (r + g + b) / 2
+                    local factor = 1.0
                     
                     local newR = math.min(avgBrightness + (r - avgBrightness) * factor, 1)
                     local newG = math.min(avgBrightness + (g - avgBrightness) * factor, 1)
