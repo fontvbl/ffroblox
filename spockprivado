@@ -11,6 +11,30 @@ Lighting.Brightness = 1
 Lighting.EnvironmentDiffuseScale = 0
 Lighting.EnvironmentSpecularScale = 0
 
+local function naturalBoost(obj)
+    for _, child in pairs(obj:GetChildren()) do
+        if child:IsA("BasePart") then
+            pcall(function()
+                if child.Color then
+                    local r, g, b = child.Color.R, child.Color.G, child.Color.B
+                    local avgBrightness = (r + g + b) / 3
+                    local factor = 1.05
+                    
+                    local newR = math.min(avgBrightness + (r - avgBrightness) * factor, 1)
+                    local newG = math.min(avgBrightness + (g - avgBrightness) * factor, 1)
+                    local newB = math.min(avgBrightness + (b - avgBrightness) * factor, 1)
+                    
+                    child.Color = Color3.new(newR, newG, newB)
+                end
+            end)
+        end
+        naturalBoost(child)
+    end
+end
+
+naturalBoost(workspace)
+print("✓ Cores ajustadas")
+
 -- Remover efeitos pesados
 for _, v in pairs(game:GetDescendants()) do
     if v:IsA("ParticleEmitter")
