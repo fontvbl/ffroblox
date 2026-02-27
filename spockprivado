@@ -1,0 +1,37 @@
+local Lighting = game:GetService("Lighting")
+local Players = game:GetService("Players")
+
+-- Gráfico no mínimo
+settings().Rendering.QualityLevel = Enum.QualityLevel.Level01
+
+-- Remover sombras
+Lighting.GlobalShadows = false
+Lighting.FogEnd = 1000000
+Lighting.Brightness = 1
+Lighting.EnvironmentDiffuseScale = 0
+Lighting.EnvironmentSpecularScale = 0
+
+-- Remover efeitos pesados
+for _, v in pairs(game:GetDescendants()) do
+    if v:IsA("ParticleEmitter")
+    or v:IsA("Trail")
+    or v:IsA("Explosion")
+    or v:IsA("Fire")
+    or v:IsA("Smoke")
+    or v:IsA("BloomEffect")
+    or v:IsA("BlurEffect")
+    or v:IsA("SunRaysEffect")
+    or v:IsA("ColorCorrectionEffect")
+    or v:IsA("DepthOfFieldEffect") then
+        v:Destroy()
+    end
+end
+
+-- Desativar Texturas
+for _, obj in pairs(game:GetDescendants()) do
+    if obj:IsA("Texture") or obj:IsA("Decal") then
+        obj.Transparency = 1
+    end
+end
+
+print("Modo FPS Boost Ativado")
